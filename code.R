@@ -8,7 +8,7 @@ install.packages("plyr")
 library(plyr)
 library(tidyverse) 
 
-setwd("D:/Documents/Paola/PEAK")
+setwd("D:/Documents/")
 es2 <- read_csv("es2.csv")
 
 ScoreCountry1 <- es2$Score[es2$CountryName=='X']
@@ -35,8 +35,8 @@ wilcox.test(ScoreCountry1, ScoreCountry2)
 rm(list=ls())
 install.packages("tidyverse")
 library(tidyverse)
-setwd("D:/Documents/Paola/PEAK")
-data <- read_csv("data_science_data.csv")
+setwd("D:/Documents/")
+data <- read_csv("data.csv")
 data1<- data%>%
   arrange(game,norm_score) %>%
   group_by(user_id,game)%>%
@@ -55,7 +55,7 @@ data1<- data%>%
 install.packages("RSQLite")
 install.packages("tcltk")
 library(sqldf)
-data2 <- sqldf('select user_id,game, count(*) as Max_N_played,avg(norm_score) as Avg_NormScore, sum(case when norm_score_diff>0 then 1 else 0 end) as Npositive,  sum(norm_score_diff) as Delta_score_norm, sum(time_diff) as Delta_time from data1 group by 1,2 order by game,count(*) desc')
+data2 <- sqldf('select user_id,game, count(*) as Max_N,avg(norm_score) as Avg_NormScore, sum(case when norm_score_diff>0 then 1 else 0 end) as Npositive,  sum(norm_score_diff) as Delta_score_norm, sum(time_diff) as Delta_time from data1 group by 1,2 order by g,count(*) desc')
 
 data2 <- data2%>%
   dplyr::mutate(NpositiveOverTotal = round(Npositive/Max_N_played))
@@ -118,7 +118,7 @@ boxplot(data3BAG$Engagement ~ data3BAG$Avg_NormScore, data =data3BAG, add = FALS
          col = "red",
        
         xlab = "Score Improvement",
-        ylab = "Numeber of time Game played",
+        ylab = "Numeber of times",
         yaxs = "i")
 
 
@@ -149,7 +149,7 @@ boxplot(data2$Max_N_played ~ data2$NpositiveOverTotal,
         subset = data2$game == "BAG", col = "yellow",
         main = "BAG",
         xlab = "Score Improvement ",
-        ylab = "Numeber of time Game played",
+        ylab = "Numeber of times",
         yaxs = "i")
 
 boxplot(data2$Max_N_played ~ data2$NpositiveOverTotal, data = data2, add = FALSE,
@@ -157,7 +157,7 @@ boxplot(data2$Max_N_played ~ data2$NpositiveOverTotal, data = data2, add = FALSE
         subset = data2$game == "RUS", col = "orange",
         main = "RUS",
         xlab = "Score Improvement",
-        ylab = "Numeber of time Game played",
+        ylab = "Numeber of times",
         yaxs = "i")
 
 boxplot(data2$Max_N_played ~ data2$NpositiveOverTotal, data = data2, add = FALSE,
@@ -165,7 +165,7 @@ boxplot(data2$Max_N_played ~ data2$NpositiveOverTotal, data = data2, add = FALSE
         subset = data2$game == "FLP", col = "red",
         main = "FLP",
         xlab = "Score Improvement",
-        ylab = "Numeber of time Game played",
+        ylab = "Numeber of times",
         yaxs = "i")
 
 boxplot(data2$Max_N_played ~ data2$NpositiveOverTotal,  data = data2, add = FALSE,
@@ -173,7 +173,7 @@ boxplot(data2$Max_N_played ~ data2$NpositiveOverTotal,  data = data2, add = FALS
         subset = data2$game == "MEM", col = "bisque",
         main = "MEM",
         xlab = "Score Improvement",
-        ylab = "Numeber of time Game played",
+        ylab = "Numeber of times",
         yaxs = "i")
 
 dev.off()
